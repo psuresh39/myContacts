@@ -23,6 +23,9 @@
     </div>
     <script type="text/template" id="tpl-contacts">
         <h2 class="page-header text-center">List of contacts</h2>
+        <p class="text-center">
+            <a href="#contacts/new" class="btn btn-lg btn-outline">Add Contact</a>
+        </p>
         <ul class="media-list row contacts-container"></ul>
     </script>
     <script type="text/template" id="tpl-contact">
@@ -32,6 +35,12 @@
   <div class="media-heading">
     <h3>
       <%- name %>
+      <small>
+          <a href="#contacts/edit/<%- id %>"><span class="glyphicon glyphicon-pencil"></span></a>
+          <a href="#contacts/delete/<%- id %>" class="delete-contract">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+        </small>
     </h3>
   </div>
   <div class="media-body">
@@ -44,7 +53,40 @@
   </div>
   <hr>
 </script>
-    <script src="vendor/jquery/src/jquery.js"></script>
+
+     <script type="text/template" id="tpl-new-contact">
+    <h2 class="page-header text-center"><%= isNew ? 'Create' : 'Edit' %> Contact</h2>
+    <form role="form" class="form-horizontal contract-form">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Full name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control contact-name-input" value="<%- name %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Email address:</label>
+        <div class="col-sm-6">
+          <input type="email" class="form-control contact-email-input" value="<%- email %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Telephone number:</label>
+        <div class="col-sm-6">
+          <input type="tel" class="form-control contact-tel-input" value="<%- tel %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-3">
+          <button type="submit" class="btn btn-outline btn-lg btn-block">Submit</button>
+        </div>
+        <div class="col-sm-3">
+          <a href="#contacts" class="btn btn-outline btn-lg btn-block">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </script>
+
+    <script src="vendor/jquery/dist/jquery.js"></script>
     <script src="vendor/underscore/underscore.js"></script>
     <script src="vendor/backbone/backbone.js"></script>
     <script src="app/js/app.js"></script>
@@ -52,6 +94,8 @@
     <script src="app/js/collections/contacts.js"></script>
     <script src="app/js/views/contact.js"></script>
     <script src="app/js/views/contacts.js"></script>
+    <script src="app/js/router.js"></script>
+    <script src="app/js/views/contactForm.js"></script>
     <script>
       $(function() {
         ContactManager.start({
